@@ -9,6 +9,7 @@ class Jugador:
         self.color = color
         self.ancho = 20
         self.alto = 100
+        self.velocitat = 5
 
     def pintar(self, ventana):
         pygame.draw.rect(ventana, self.color, (self.posX, self.posY, self.ancho, self.alto))

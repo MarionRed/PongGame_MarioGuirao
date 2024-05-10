@@ -19,35 +19,30 @@ def DetectarEvents():
             pygame.quit()
             sys.exit()
 
-    pygame.key.get_pressed()
-    print(pygame.key.get_pressed()[pygame.K_w])
+    keys = pygame.key.get_pressed()
+    #Dejo los prints para comprobar que se reconocen las teclas.
+    print(keys[pygame.K_w])
+    print(keys[pygame.K_s])
+    print(keys[pygame.K_UP])
+    print(keys[pygame.K_DOWN])
 
-    pygame.key.get_pressed()
-    print(pygame.key.get_pressed()[pygame.K_s])
+    if keys[pygame.K_w]:
+        jugador1.posY -= 20
 
-    pygame.key.get_pressed()
-    print(pygame.key.get_pressed()[pygame.K_UP])
+    if keys[pygame.K_s]:
+        jugador1.posY += 20
 
-    pygame.key.get_pressed()
-    print(pygame.key.get_pressed()[pygame.K_DOWN])
+    if keys[pygame.K_UP]:
+        jugador2.posY -= 20
 
-    if pygame.key.get_pressed()[pygame.K_w]:
-        jugador1.posY = jugador1.posY + 20
-
-    if pygame.key.get_pressed()[pygame.K_s]:
-        jugador1.posY = jugador1.posY - 20
-
-    if pygame.key.get_pressed()[pygame.K_UP]:
-        jugador2.posY = jugador2.posY + 20
-
-    if pygame.key.get_pressed()[pygame.K_DOWN]:
-        jugador2.posY = jugador2.posY - 20
+    if keys[pygame.K_DOWN]:
+        jugador2.posY += 20
 
 def Pintar():
     finestraJoc.fill((255,255,255))
     pygame.draw.rect(finestraJoc, (0, 255, 0), (0, 50, 600, 300))
-    pygame.draw.rect(finestraJoc, COLOR_JUGADOR1, (MARGES_ESCENARI, 150, 20, 100))  # Jugador 1
-    pygame.draw.rect(finestraJoc, COLOR_JUGADOR2, (520, 150, 20, 100))  # Jugador 2
+    pygame.draw.rect(finestraJoc, COLOR_JUGADOR1, (MARGES_ESCENARI, jugador1.posY, 20, 100))
+    pygame.draw.rect(finestraJoc, COLOR_JUGADOR2, (520, jugador2.posY, 20, 100))
 
 while not gameOver:
 

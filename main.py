@@ -14,7 +14,11 @@ gameOver = False
 
 jugador1 = Jugador(MARGES_ESCENARI, 50, COLOR_JUGADOR1)
 jugador2 = Jugador(AMPLA_ESCENARI - MARGES_ESCENARI - 20, 50, COLOR_JUGADOR2)
+
 pilota = Pilota((300, 200), (0, 0, 0))
+
+puntuacio_jugador1 = 0
+puntuacio_jugador2 = 0
 def DetectarEvents():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -46,7 +50,13 @@ def Pintar():
     pygame.draw.rect(finestraJoc, (0, 255, 0), (0, 50, 600, 300))
     pygame.draw.rect(finestraJoc, COLOR_JUGADOR1, (MARGES_ESCENARI, jugador1.posY, 20, 100))
     pygame.draw.rect(finestraJoc, COLOR_JUGADOR2, (520, jugador2.posY, 20, 100))
+
     pilota.pintar(finestraJoc)
+
+    #Parte de la puntuación
+    font = pygame.font.Font(None, 36)
+    text = font.render(f'Jugador 1: {puntuacio_jugador1} - Jugador 2: {puntuacio_jugador2}', 1, (10, 10, 10))
+    finestraJoc.blit(text, (20, 20))
 
 while not gameOver:
 
@@ -65,6 +75,13 @@ while not gameOver:
     # Aquí resetea cuando la pelota choca con la pared
     if pilota.posicio[0] <= 0 or pilota.posicio[0] >= 600:
         pilota.reset()
+
+    #Condicionales para sumar los puntos (No funciona)
+    if pilota.posicio[0] <= 0:
+        puntuacio_jugador2 =+ 1
+
+    if pilota.posicio[0] >= 600:
+        puntuacio_jugador1 =+ 1
     Pintar()
 
     rellotge.tick(30)

@@ -26,16 +26,17 @@ def DetectarEvents():
     print(keys[pygame.K_UP])
     print(keys[pygame.K_DOWN])
 
-    if keys[pygame.K_w]:
+    #No he sabido como hacer que funcione sin duplicar.
+    if keys[pygame.K_w] and jugador1.posY - 20 >= 50:
         jugador1.posY -= 20
 
-    if keys[pygame.K_s]:
+    if keys[pygame.K_s] and jugador1.posY + 20 <= 50 + 300 - 100:
         jugador1.posY += 20
 
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] and jugador2.posY - 20 >= 50:
         jugador2.posY -= 20
 
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_DOWN] and jugador2.posY + 20 <= 50 + 300 - 100:
         jugador2.posY += 20
 
 def Pintar():

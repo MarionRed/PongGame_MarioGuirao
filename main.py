@@ -1,3 +1,4 @@
+#https://github.com/MarionRed/PongGame_MarioGuirao.git
 import sys
 
 import pygame
@@ -26,11 +27,7 @@ def DetectarEvents():
             sys.exit()
 
     keys = pygame.key.get_pressed()
-    #Dejo los prints para comprobar que se reconocen las teclas.
-    print(keys[pygame.K_w])
-    print(keys[pygame.K_s])
-    print(keys[pygame.K_UP])
-    print(keys[pygame.K_DOWN])
+
 
     #No he sabido como hacer que funcione sin duplicar.
     if keys[pygame.K_w] and jugador1.posY - 20 >= 50:
@@ -74,14 +71,14 @@ while not gameOver:
 
     # Aquí resetea cuando la pelota choca con la pared
     if pilota.posicio[0] <= 0 or pilota.posicio[0] >= 600:
+        posicio_anterior = pilota.posicio[0]
         pilota.reset()
 
-    #Condicionales para sumar los puntos (No funciona)
-    if pilota.posicio[0] <= 0:
-        puntuacio_jugador2 =+ 1
+        if posicio_anterior <= 0:
+            puntuacio_jugador2 += 1
 
-    if pilota.posicio[0] >= 600:
-        puntuacio_jugador1 =+ 1
+        if posicio_anterior >= 600:
+            puntuacio_jugador1 += 1
     Pintar()
 
     rellotge.tick(30)

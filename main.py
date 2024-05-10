@@ -4,6 +4,7 @@ import pygame
 
 from constant import COLOR_JUGADOR1, MARGES_ESCENARI, COLOR_JUGADOR2, AMPLA_ESCENARI
 from Jugador import Jugador
+from Pilota import Pilota
 
 pygame.init()
 finestraJoc = pygame.display.set_mode((600, 400))
@@ -13,6 +14,7 @@ gameOver = False
 
 jugador1 = Jugador(MARGES_ESCENARI, 50, COLOR_JUGADOR1)
 jugador2 = Jugador(AMPLA_ESCENARI - MARGES_ESCENARI - 20, 50, COLOR_JUGADOR2)
+pilota = Pilota((300, 200), (0, 0, 0))
 def DetectarEvents():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -44,10 +46,25 @@ def Pintar():
     pygame.draw.rect(finestraJoc, (0, 255, 0), (0, 50, 600, 300))
     pygame.draw.rect(finestraJoc, COLOR_JUGADOR1, (MARGES_ESCENARI, jugador1.posY, 20, 100))
     pygame.draw.rect(finestraJoc, COLOR_JUGADOR2, (520, jugador2.posY, 20, 100))
+    pilota.pintar(finestraJoc)
 
 while not gameOver:
 
     DetectarEvents()
+    pilota.moure()
+
+    #Aquí rebota con el techo
+    if pilota.posicio[1] <= +50 or pilota.posicio[1] >= 350:
+        pilota.rebota_vertical()
+
+    # Aquí la pelota rebote con los jugadores
+    if jugador1.colisiona(pilota) or jugador2.colisiona(pilota):
+        pilota.rebota_horitzontal()
+        pilota.augmenta_velocitat()
+
+    # Aquí resetea cuando la pelota choca con la pared
+    if pilota.posicio[0] <= 0 or pilota.posicio[0] >= 600:
+        pilota.reset()
     Pintar()
 
     rellotge.tick(30)
